@@ -691,6 +691,7 @@ int main(int argc, char* argv[])
 					{
 						buffer.clear();
 						buffer.push_back(vector<int>{});
+						curs_y, curs_x = 0;
 						int copy_y = 0;
 						int copy_x = 0;
 
@@ -864,7 +865,7 @@ int main(int argc, char* argv[])
 					break;
 				}
 				//in all other cases, the cursor moves downward in the window
-				else
+				else if (vector_y<buffer.size())
 				{
 					curs_x = 0;
 					curs_y++;					
