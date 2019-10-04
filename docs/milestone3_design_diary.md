@@ -26,4 +26,4 @@ I am able to load, save, scroll, and input text onto the screen. I have to still
 my backspace, arrow keys, newline, and other non-alphanumeric inputs work more how I would
 like them to.
 
-![Milestone3Demo]https://raw.githubusercontent.com/rja45/CS211-TextEditor/master/docs/Milestone03.gif
+![Milestone3Demo(https://raw.githubusercontent.com/rja45/CS211-TextEditor/master/docs/Milestone03.gif)
