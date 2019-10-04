@@ -25,3 +25,5 @@ I have kluged my Text Editor to meet Milestone 3, but I am still satisfied with 
 I am able to load, save, scroll, and input text onto the screen. I have to still work on making
 my backspace, arrow keys, newline, and other non-alphanumeric inputs work more how I would
 like them to.
+
+![Milestone3Demo]https://raw.githubusercontent.com/rja45/CS211-TextEditor/master/docs/Milestone03.gif
