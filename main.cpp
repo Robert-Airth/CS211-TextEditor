@@ -277,9 +277,10 @@ int main(int argc, char* argv[])
 
 		while (!quit) {
 
-			input = wgetch(main_window);
 			vector_y = int(curs_y + output_tedge);
 			vector_x = int(curs_x + output_ledge);
+			input = wgetch(main_window);
+			
 
 
 
@@ -501,11 +502,11 @@ int main(int argc, char* argv[])
 						break;
 					}
 
-					else if(outFile.good())
+					else if (outFile.good())
 
-					{				
+					{
 
-						for(int i = 0; i < buffer.size(); i++)
+						for (int i = 0; i < buffer.size(); i++)
 						{
 							for (int j = 0; j < buffer[i].size(); j++)
 							{
@@ -516,44 +517,44 @@ int main(int argc, char* argv[])
 
 						outFile.close();
 
-							if (!outFile.is_open())
-							{
-								attron(COLOR_PAIR(TERMTEXT));
+						if (!outFile.is_open())
+						{
+							attron(COLOR_PAIR(TERMTEXT));
 
-								mvprintw(term_rows - 1, term_cols - 50, "                                              ");
+							mvprintw(term_rows - 1, term_cols - 50, "                                              ");
 
-								attroff(COLOR_PAIR(TERMTEXT));
+							attroff(COLOR_PAIR(TERMTEXT));
 
-								attron(COLOR_PAIR(PROMPTCOLORS));
+							attron(COLOR_PAIR(PROMPTCOLORS));
 
-								//exit prompt print
-								mvprintw(term_rows - 1, term_cols - 50, "Your file has been saved! Press any key.");
+							//exit prompt print
+							mvprintw(term_rows - 1, term_cols - 50, "Your file has been saved! Press any key.");
 
-								attroff(COLOR_PAIR(PROMPTCOLORS)); //CHANGES COLOR BACK TO WINCOLORS
+							attroff(COLOR_PAIR(PROMPTCOLORS)); //CHANGES COLOR BACK TO WINCOLORS
 
-								refresh();
+							refresh();
 
-								getch();
-							}
-							else
-							{
-								attron(COLOR_PAIR(TERMTEXT));
+							getch();
+						}
+						else
+						{
+							attron(COLOR_PAIR(TERMTEXT));
 
-								mvprintw(term_rows - 1, term_cols - 50, "                                              ");
+							mvprintw(term_rows - 1, term_cols - 50, "                                              ");
 
-								attroff(COLOR_PAIR(TERMTEXT));
+							attroff(COLOR_PAIR(TERMTEXT));
 
-								attron(COLOR_PAIR(PROMPTCOLORS));
+							attron(COLOR_PAIR(PROMPTCOLORS));
 
-								//exit prompt print
-								mvprintw(term_rows - 1, term_cols - 50, "An unknown error has occurred. Press any key.");
+							//exit prompt print
+							mvprintw(term_rows - 1, term_cols - 50, "An unknown error has occurred. Press any key.");
 
-								attroff(COLOR_PAIR(PROMPTCOLORS)); //CHANGES COLOR BACK TO WINCOLORS
+							attroff(COLOR_PAIR(PROMPTCOLORS)); //CHANGES COLOR BACK TO WINCOLORS
 
-								refresh();
+							refresh();
 
-								getch();
-							}
+							getch();
+						}
 
 					}
 
@@ -561,11 +562,11 @@ int main(int argc, char* argv[])
 				}
 				else
 				{
-				attron(COLOR_PAIR(TERMTEXT));
+					attron(COLOR_PAIR(TERMTEXT));
 
-				mvprintw(term_rows - 1, term_cols - 50, "                                           ");
+					mvprintw(term_rows - 1, term_cols - 50, "                                           ");
 
-				attroff(COLOR_PAIR(TERMTEXT));
+					attroff(COLOR_PAIR(TERMTEXT));
 
 					attron(COLOR_PAIR(PROMPTCOLORS)); //CHANGES COLOR FOR PROMPT
 
@@ -638,13 +639,13 @@ int main(int argc, char* argv[])
 						c = getch();
 					}
 
-					
+
 
 					strncpy_s(fname, filename.c_str(), sizeof(filename));
 
 
 					attroff(COLOR_PAIR(PROMPTCOLORS)); //CHANGES COLOR BACK TO WINCOLORS						
-					
+
 
 					inFile.open(fname);
 
@@ -652,9 +653,9 @@ int main(int argc, char* argv[])
 					if (!inFile.good())
 					{
 						attron(COLOR_PAIR(TERMTEXT));
-						
+
 						mvprintw(term_rows - 1, term_cols - 50, "                                           ");
-						
+
 						attroff(COLOR_PAIR(TERMTEXT));
 
 						attron(COLOR_PAIR(PROMPTCOLORS)); //CHANGES COLOR FOR PROMPT
@@ -701,7 +702,7 @@ int main(int argc, char* argv[])
 
 							if (fileChar == 10)
 							{
-								
+
 								buffer.push_back(vector<int>{});
 								copy_y++;
 								if (vector_x < copy_x)
@@ -715,12 +716,12 @@ int main(int argc, char* argv[])
 								buffer[copy_y].push_back(fileChar);
 								copy_x++;
 							}
-							
+
 							buffer_max_y = copy_y;
 
 						}
 
-						
+
 						attron(COLOR_PAIR(TERMTEXT));
 
 						mvprintw(term_rows - 1, term_cols - 50, "                                           ");
@@ -747,17 +748,17 @@ int main(int argc, char* argv[])
 				{
 
 					attron(COLOR_PAIR(PROMPTCOLORS)); //CHANGES COLOR FOR PROMPT
-	
+
 					mvprintw(term_rows - 1, term_cols - 50, "File loading cancelled. Press any key.");
 
 					attroff(COLOR_PAIR(PROMPTCOLORS)); //CHANGES COLOR BACK TO WINCOLORS
-					
-					getch();			
+
+					getch();
 
 				}
 
 
-				
+
 
 				attron(COLOR_PAIR(TERMTEXT));
 
@@ -802,16 +803,16 @@ int main(int argc, char* argv[])
 			case (KEY_RIGHT):
 
 				//if cursor is at right edge, with more to display, the text shifts leftward and cursor doesn't move.
-				if (curs_x == win_cols - 1 && output_redge < buffer[vector_y].size()-1)
+				if (curs_x == win_cols - 1 && output_redge < buffer[vector_y].size())
 				{
 					output_redge++;
 					output_ledge++;
 					break;
 				}
-			
+
 				//if cursor is at the right edge, with nothing more to display nothing happens
-				else if(curs_x == buffer[vector_y].size())
-				{					
+				else if (curs_x == buffer[vector_y].size())
+				{
 					break;
 				}
 				else
@@ -822,7 +823,7 @@ int main(int argc, char* argv[])
 
 				}
 
-				
+
 
 			case (KEY_UP):
 				//if cursor is at the top edge, with more to display, the text shifts downward and cursor doesn't move.
@@ -857,28 +858,28 @@ int main(int argc, char* argv[])
 				}
 				//if cursor is at the bottom edge, with nothing more to display, nothing happens
 				else if (curs_y == win_rows - 1 && output_bedge == buffer.size() - 1)
-				{					
+				{
 					break;
 				}
-				else if (curs_y == buffer.size()-1)
+				else if (curs_y == buffer.size() - 1)
 				{
 					break;
 				}
 				//in all other cases, the cursor moves downward in the window
-				else if (vector_y<buffer.size())
+				else if (vector_y < buffer.size())
 				{
 					curs_x = 0;
-					curs_y++;					
+					curs_y++;
 					break;
 				}
 
 				///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 			case BACKSPACE:
-				
+
 
 				if (vector_x == 0 && vector_y > 0)
 				{
-					buffer.erase(buffer.begin() + curs_y -1);
+					buffer.erase(buffer.begin() + curs_y - 1);
 					curs_y--;
 					break;
 				}
@@ -888,19 +889,20 @@ int main(int argc, char* argv[])
 				}
 				else
 				{
-					buffer[vector_y].erase(buffer[vector_y].begin() + curs_x-1);
+					buffer[vector_y].erase(buffer[vector_y].begin() + vector_x - 1);
 					curs_x--;
+					break;
 				}
-				
+
 
 				break;
 
 			case (NEWLINE):
 				// if the cursor is at the bottom of the screen and the cursor is not at the last row of the buffer, then a new line is inserted.
-				if (curs_y == win_rows- 1 && vector_y == buffer.size()-1)
+				if (curs_y == win_rows - 1 && vector_y == buffer.size() - 1)
 				{
 					buffer.push_back(vector<int>{});
-;					output_tedge++;
+					;					output_tedge++;
 					output_bedge++;
 					output_ledge = win_fcol;
 					output_redge = win_rows;
@@ -908,12 +910,12 @@ int main(int argc, char* argv[])
 					curs_y++;
 					break;
 				}
-				
-			
+
+
 				//in all other cases, the cursor moves downward in the window
-				else if(vector_x == buffer[vector_y].size() - 1 && vector_y < buffer.size())
+				else if (vector_x == buffer[vector_y].size() - 1 && vector_y < buffer.size())
 				{
-										
+
 					output_ledge = win_fcol;
 					output_redge = win_rows;
 					curs_x = 0;
@@ -921,9 +923,9 @@ int main(int argc, char* argv[])
 					break;
 				}
 
-				else if(vector_x == buffer[vector_y].size() - 1 && vector_y == buffer.size())
+				else if (vector_x == buffer[vector_y].size() - 1 && vector_y == buffer.size())
 				{
-					buffer.push_back( vector<int>{});
+					buffer.push_back(vector<int>{});
 					output_ledge = win_fcol;
 					output_redge = win_rows;
 					curs_x = 0;
@@ -936,57 +938,57 @@ int main(int argc, char* argv[])
 					curs_x = 0;
 					curs_y++;
 				}
-				else 
+				else
 				{
-					buffer.insert(buffer.begin() + vector_y+1, vector<int>{});
+					buffer.insert(buffer.begin() + vector_y + 1, vector<int>{});
 					curs_x = 0;
 					curs_y++;
 					break;
 				}
 
 				break;
-					
-
-
 
 
 
 			default:
+
 
 				row = buffer.begin();
 
 				col = buffer[vector_y].begin();
 
 				//if cursor is at the right edge and there is more to display, the character is inserted and the text moves leftward and the cursor doesn't move.
-				if (curs_x == win_cols-1 && output_redge < buffer[vector_y].size()-1)
+				if (curs_x == win_cols - 1 && vector_x < buffer[vector_y].size())
 				{
 
-					buffer[vector_y].insert(col + curs_x, input);
-					output_redge+=2;
-					output_ledge+=2;
+					buffer[vector_y].insert(col + vector_x, input);
+					output_redge++;
+					output_ledge++;
 					break;
 				}
 				//if the cursor is at the right edge and there is nothing more to display, the new character gets added to the end of the vector and the text shifts leftward.
-				else if (curs_x == win_cols-1 && output_redge == buffer[vector_y].size() - 1)
+				else if (curs_x == win_cols - 1 && vector_x == buffer[vector_y].size())
 				{
 					buffer[vector_y].push_back(input);
 					output_redge++;
 					output_ledge++;
 					break;
 				}
-				//in all other cases, the input the cursor moves rightward.
-				else if (vector_x != buffer[vector_y].size()-1)
+				//in all other cases, the input goes onto the screen and the cursor moves rightward.
+				else if (curs_x < win_cols - 1 && vector_x < buffer[vector_y].size())
 				{
 					buffer[vector_y].insert(col + vector_x, input);
-					
 					curs_x++;
 					break;
 				}
-				else
+				else if (curs_x < win_cols && vector_x == buffer[vector_y].size())
 				{
 					buffer[vector_y].push_back(input);
+					curs_x++;
 					break;
 				}
+
+
 
 			}
 
