@@ -9,6 +9,7 @@
 #define SAVE ctrl('s')
 #define LOAD ctrl('l')
 #define NEW_FILE ctrl('n')
+#define AUTO_COMPLETE ctrl('a')
 #define ctrl(x)           ((x) & 0x1f)
 #define LEFT_ARROW 260
 #define	RIGHT_ARROW 261
@@ -26,6 +27,8 @@
 #include <fstream>
 #include <vector>
 #include <string>
+#include "Trie.h"
+#include <stack>
 
 using namespace std;
 
@@ -59,15 +62,26 @@ int main(int argc, char* argv[])
 	int vector_x = 0;
 	int buffer_max_y = 0;
 	int buffer_max_x = 0;
+
 	
 	char fname[30];
 	char fileChar;
 	char c;
 	ifstream inFile;
+	ifstream keywords;
 	ofstream outFile;
 	vector< vector <int> > buffer;	
 	vector < vector <int> > ::iterator row;	
 	vector<int>::iterator col; 
+
+
+	Trie dictionary{};
+
+	stack<int> stack;
+
+	string searchString = "";
+
+	vector<string> wordsFound;
 	
 
 	
@@ -94,6 +108,8 @@ int main(int argc, char* argv[])
 
 	//initialize the main window
 	WINDOW* main_window = newwin(win_rows, win_cols, win_frow, win_fcol);
+	WINDOW* auto_comp = newwin(5, 15, win_rows - 16, win_cols - 6);
+	PANEL* auto_c = new_panel(auto_comp);
 
 
 	//Set input characteristics	
@@ -115,7 +131,7 @@ int main(int argc, char* argv[])
 
 
 	//color initializations
-	if (can_change_color) {
+	if (can_change_color()) {
 		//start colors
 		start_color();
 
@@ -154,6 +170,21 @@ int main(int argc, char* argv[])
 	mvprintw(term_rows - 1, 3, "CTRL+S -Save File | CTRL+L -Load File | CTRL+N -New File");
 	attroff(COLOR_PAIR(TERMTEXT));
 	
+	//This code below builds the Dictionary based on a Trie data structure
+	keywords.open("keywords.txt");
+	if (keywords.is_open())
+	{
+		string word = "";
+		if (keywords.good())
+		{
+			while (keywords >> word)
+			{
+				dictionary.addWord(word);
+			}
+		}
+	}
+	keywords.close();
+
 
 	if (argc >= 2)
 	{
@@ -329,7 +360,7 @@ int main(int argc, char* argv[])
 
 
 
-			switch (input) {
+		switch (input) {
 			case (ESCAPE):
 				//changes color for prompt
 				attron(COLOR_PAIR(PROMPTCOLORS));
@@ -948,6 +979,52 @@ int main(int argc, char* argv[])
 
 				break;
 
+			case (AUTO_COMPLETE):
+
+				searchString = "";
+
+				wordsFound.clear();
+
+				while (buffer[vector_y][vector_x] != ' ' && vector_x !=1)
+				{					
+					stack.push(buffer[vector_y][vector_x-1]);					
+					
+					buffer[vector_y].erase(buffer[vector_y].begin() + vector_x);
+					
+				}
+				while (stack.empty() == false)
+				{
+					searchString += stack.top();
+					stack.pop();
+				}				
+
+				wordsFound = dictionary.search(searchString);
+
+				for (auto word : wordsFound)
+				{
+					for (auto c : word)
+					{
+						stack.push(c);						
+					}
+					stack.push(' ');
+				}
+
+				while (stack.empty() == false)
+				{
+					vector_x++;
+					buffer[vector_y].insert(col + vector_x, int(stack.top()));
+					stack.pop();
+					
+				}
+
+
+
+					
+				
+				
+				break;
+
+
 
 
 			default:
@@ -1046,6 +1123,7 @@ bool confirm(void) {
 
 	default:
 		confirm();
+		break;
 	}
 
 }
