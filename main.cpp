@@ -99,7 +99,7 @@ int main(int argc, char* argv[])
 	win_cols = term_cols - 4;
 	win_fcol = 2;
 	win_frow = 2;
-	win_rows = term_rows - 4;
+	win_rows = term_rows - 5;
 	output_redge = win_cols;
 	output_ledge = 0;
 	output_bedge = win_rows;
@@ -167,7 +167,8 @@ int main(int argc, char* argv[])
 	//Terminal text at the top and bottom of the window	
 	attron(COLOR_PAIR(TERMTEXT));
 	mvprintw(0, 3, "Welcome to the Airth Text Editor!    | ESC - Quit |");
-	mvprintw(term_rows - 1, 3, "CTRL+S -Save File | CTRL+L -Load File | CTRL+N -New File");
+	mvprintw(term_rows - 1, 3, "CTRL + : S =Save , L =Load , N =New , A =Predict");
+
 	attroff(COLOR_PAIR(TERMTEXT));
 	
 	//This code below builds the Dictionary based on a Trie data structure
