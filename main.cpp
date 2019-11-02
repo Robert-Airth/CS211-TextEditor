@@ -109,7 +109,7 @@ int main(int argc, char* argv[])
 	//initialize the main window
 	WINDOW* main_window = newwin(win_rows, win_cols, win_frow, win_fcol);
 	WINDOW* auto_comp = newwin(5, 15, win_rows - 16, win_cols - 6);
-	PANEL* auto_c = new_panel(auto_comp);
+	
 
 
 	//Set input characteristics	
@@ -310,7 +310,7 @@ int main(int argc, char* argv[])
 
 			vector_y = int(curs_y + output_tedge);
 			vector_x = int(curs_x + output_ledge);
-			input = wgetch(main_window);
+     		input = wgetch(main_window);
 			
 
 
@@ -981,17 +981,25 @@ int main(int argc, char* argv[])
 
 			case (AUTO_COMPLETE):
 
+
+
 				searchString = "";
 
-				wordsFound.clear();
+				wordsFound.clear();			
+			
+				vector_x--;
+				curs_x--;
 
-				while (buffer[vector_y][vector_x] != ' ' && vector_x !=1)
-				{					
-					stack.push(buffer[vector_y][vector_x-1]);					
-					
-					buffer[vector_y].erase(buffer[vector_y].begin() + vector_x);
-					
-				}
+				while (vector_x >= 0 && buffer[vector_y][vector_x] != ' ')
+				{									
+					stack.push(buffer[vector_y][vector_x]);							
+					buffer[vector_y].erase(buffer[vector_y].begin() + vector_x);	
+					vector_x--;
+					curs_x--;
+				} 
+				vector_x++;
+				curs_x++;
+
 				while (stack.empty() == false)
 				{
 					searchString += stack.top();
@@ -1000,8 +1008,9 @@ int main(int argc, char* argv[])
 
 				wordsFound = dictionary.search(searchString);
 
-				for (auto word : wordsFound)
+				for (int i = 0; i < wordsFound.size() && i < 4; i++)
 				{
+					string word = wordsFound[i];
 					for (auto c : word)
 					{
 						stack.push(c);						
@@ -1011,8 +1020,10 @@ int main(int argc, char* argv[])
 
 				while (stack.empty() == false)
 				{
-					vector_x++;
-					buffer[vector_y].insert(col + vector_x, int(stack.top()));
+					
+					buffer[vector_y].insert(buffer[vector_y].begin()+vector_x, int(stack.top()));
+					curs_x++;
+					
 					stack.pop();
 					
 				}
