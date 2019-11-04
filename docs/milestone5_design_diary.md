@@ -47,4 +47,4 @@
 
 
 
-![Milestone5Demo](https://raw.githubusercontent.com/rja45/CS211-TextEditor/master/docs/Milestone03.gif)
+![Milestone5Demo](https://raw.githubusercontent.com/rja45/CS211-TextEditor/master/docs/Milestone05.gif)
