@@ -10,6 +10,7 @@
 #define LOAD ctrl('l')
 #define NEW_FILE ctrl('n')
 #define AUTO_COMPLETE ctrl('a')
+#define COMPRESS ctrl('k')
 #define ctrl(x)           ((x) & 0x1f)
 #define LEFT_ARROW 260
 #define	RIGHT_ARROW 261
@@ -17,6 +18,7 @@
 #define DOWN_ARROW 258
 #define BACKSPACE 8
 #define NEWLINE 10
+
 
 
 //Header Files
@@ -29,6 +31,9 @@
 #include <string>
 #include "Trie.h"
 #include <stack>
+#include <functional>
+#include <queue>
+#include <unordered_map>
 
 using namespace std;
 
@@ -76,13 +81,16 @@ int main(int argc, char* argv[])
 
 
 	Trie dictionary{};
-
 	stack<int> stack;
-
 	string searchString = "";
-
 	vector<string> wordsFound;
-	
+
+
+	unordered_map<string, int> wordFreq;
+	priority_queue<pair<string, int>, vector<pair<string,int>>, greater<pair<string,int>>> maxHeap;
+	string word = "";
+	unordered_map<string, string> compKey;
+
 
 	
 
@@ -167,7 +175,7 @@ int main(int argc, char* argv[])
 	//Terminal text at the top and bottom of the window	
 	attron(COLOR_PAIR(TERMTEXT));
 	mvprintw(0, 3, "Welcome to the Airth Text Editor!    | ESC - Quit |");
-	mvprintw(term_rows - 1, 3, "CTRL + : S =Save , L =Load , N =New , A =Predict");
+	mvprintw(term_rows - 1, 3, "CTRL + : S =Save , L =Load , N =New , A =Predict, K =Compress");
 
 	attroff(COLOR_PAIR(TERMTEXT));
 	
@@ -338,7 +346,7 @@ int main(int argc, char* argv[])
 				//add Welcome String to the screen
 				attron(COLOR_PAIR(TERMTEXT)); //CHANGES COLOR FOR PROMPT
 				mvprintw(0, 3, "Welcome to the Airth Text Editor!");
-				mvprintw(term_rows - 1, 3, "ESC - Quit | CTRL+S -Save File | CTRL+L -Load File | CTRL+N -New File");
+				mvprintw(term_rows - 1, 3, "CTRL + : S =Save , L =Load , N =New , A =Predict, K =Compress");
 				attroff(COLOR_PAIR(TERMTEXT)); //CHANGES COLOR BACK TO WINCOLORS
 
 				//get new window edges
@@ -1027,13 +1035,73 @@ int main(int argc, char* argv[])
 					
 					stack.pop();
 					
+				}				
+				
+				
+				break;
+
+
+
+			case (COMPRESS):
+
+
+				for (auto row : buffer)
+				{
+					for (auto ch : row)
+					{
+						if (ch < 91 && ch >64 || ch > 96 && ch < 123)
+						{
+							word += ch;
+						}
+						else
+						{
+							if (word.size() > 0)
+							{
+								wordFreq[word]++;
+								
+							}
+							word = "";
+						}
+					}
+				}
+
+				for (auto pair : wordFreq)
+				{
+					maxHeap.push(pair);
+				}
+
+				
+				while (maxHeap.empty() == false)
+				{
+					string word = maxHeap.top().first;
+					int freq = maxHeap.top().second;
+
+					while (freq > 0)
+					{
+						stack.push(freq&1);
+						freq >> 1;
+
+					}
+					
+					while (stack.empty() == false)
+					{
+						compKey[word] += stack.top();
+					}
+					
+
+
 				}
 
 
 
-					
-				
-				
+
+
+
+
+
+
+
+
 				break;
 
 
