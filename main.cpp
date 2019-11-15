@@ -34,6 +34,7 @@
 #include <functional>
 #include <queue>
 #include <unordered_map>
+#include <sstream>
 
 using namespace std;
 
@@ -41,6 +42,8 @@ using namespace std;
 ////////////////////////////////          Function Prototypes            ////////////////////////////////
 bool confirm(void);
 void printBuffer(WINDOW* win, vector<vector <int> > buff, int frow, int lrow, int fcol, int lcol);
+string intToBinary(int some_number);
+
 
 
 //******************************            Main Function                  *******************************
@@ -78,6 +81,7 @@ int main(int argc, char* argv[])
 	vector< vector <int> > buffer;	
 	vector < vector <int> > ::iterator row;	
 	vector<int>::iterator col; 
+	string filename = "";
 
 
 	Trie dictionary{};
@@ -90,7 +94,16 @@ int main(int argc, char* argv[])
 	priority_queue<pair<string, int>, vector<pair<string,int>>, greater<pair<string,int>>> maxHeap;
 	string word = "";
 	unordered_map<string, string> compKey;
-
+	int orderOffHeap = 0;
+	int binConversion;
+	vector< vector<int> > compBuffer;
+	string item = "";
+	string wordToReplace = "";
+	int comp_y = 0;
+	int comp_x = 0;
+	ostringstream result;
+	string compFilename;
+	string codeFilename;
 
 	
 
@@ -942,7 +955,7 @@ int main(int argc, char* argv[])
 				if (curs_y == win_rows - 1 && vector_y == buffer.size() - 1)
 				{
 					buffer.push_back(vector<int>{});
-					;					output_tedge++;
+					output_tedge++;
 					output_bedge++;
 					output_ledge = win_fcol;
 					output_redge = win_rows;
@@ -990,7 +1003,7 @@ int main(int argc, char* argv[])
 
 			case (AUTO_COMPLETE):
 
-
+				
 
 				searchString = "";
 
@@ -1045,6 +1058,334 @@ int main(int argc, char* argv[])
 			case (COMPRESS):
 
 
+				attron(COLOR_PAIR(PROMPTCOLORS)); //CHANGES COLOR FOR PROMPT
+
+				mvprintw(term_rows - 1, term_cols - 50, "Would you like to compress this file? Y or N");
+
+				attroff(COLOR_PAIR(PROMPTCOLORS)); //CHANGES COLOR BACK TO WINCOLORS
+
+				if (confirm())
+				{
+					
+					if (inFile.is_open())
+					{
+						inFile.close();
+					}
+
+					attron(COLOR_PAIR(TERMTEXT));
+
+					mvprintw(term_rows - 1, term_cols - 50, "                                               ");
+
+					attroff(COLOR_PAIR(TERMTEXT));
+
+					attron(COLOR_PAIR(PROMPTCOLORS)); //CHANGES COLOR FOR PROMPT
+
+					mvprintw(term_rows - 1, term_cols - 50, "What is the name and extension of this file?");
+
+					attroff(COLOR_PAIR(PROMPTCOLORS)); //CHANGES COLOR BACK TO WINCOLORS
+
+					attron(COLOR_PAIR(TERMTEXT));
+
+					mvprintw(0, term_cols - 50, "                                           ");
+
+					attroff(COLOR_PAIR(TERMTEXT));
+
+					refresh();
+
+					attron(COLOR_PAIR(PROMPTCOLORS)); //CHANGES COLOR FOR PROMPT
+
+					wmove(stdscr, 0, term_cols - 30);
+
+					c = getch();
+
+					while (c != 10)
+					{
+						filename.push_back(c);
+						addch(c);
+						c = getch();
+					}		
+
+					compFilename = filename + ".compressed.txt";
+
+					strncpy_s(fname, compFilename.c_str(), sizeof(compFilename));
+
+
+					attroff(COLOR_PAIR(PROMPTCOLORS)); //CHANGES COLOR BACK TO WINCOLORS						
+
+
+					outFile.open(fname, std::ofstream::out | std::ofstream::trunc);
+
+
+					if (!outFile.good())
+					{
+						attron(COLOR_PAIR(TERMTEXT));
+
+						mvprintw(term_rows - 1, term_cols - 50, "                                                  ");
+
+						attroff(COLOR_PAIR(TERMTEXT));
+
+						attron(COLOR_PAIR(PROMPTCOLORS)); //CHANGES COLOR FOR PROMPT
+
+						mvprintw(term_rows - 1, term_cols - 50, "Your file has NOT been compressed! Press any key.");
+
+						attroff(COLOR_PAIR(PROMPTCOLORS)); //CHANGES COLOR BACK TO WINCOLORS	
+
+						getch();
+
+						attron(COLOR_PAIR(TERMTEXT));
+
+						mvprintw(term_rows - 1, term_cols - 50, "                                                  ");
+
+						attroff(COLOR_PAIR(TERMTEXT));
+
+						attron(COLOR_PAIR(TERMTEXT));
+
+						mvprintw(0, term_cols - 50, "                                           ");
+
+						attroff(COLOR_PAIR(TERMTEXT));
+
+						memset(fname, 0, sizeof(fname));
+
+						
+
+						refresh();
+						filename.clear();
+						break;
+					}
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+					else if (outFile.good())
+
+					{
+						//this goes through the main_window buffer and finds all words made of
+						//a-z or A-Z characters (with all other characters serving as delimiters of words)
+						//and adds those words and their frequencies to an unordered map<string, int>
+						for (auto row : buffer)
+						{
+							for (auto ch : row)
+							{
+								if (ch < 91 && ch >64 || ch > 96 && ch < 123)
+								{
+									word += ch;
+								}
+								else 
+								{
+									if (word.size() > 0)
+									{
+										wordFreq[word]++;
+									}
+									word = "";
+								}
+							}
+							if (word.size() > 0 )
+							{
+								wordFreq[word]++;
+								word = "";
+							}
+
+						}
+
+						//this takes all of the words from the frequency map above
+						//and puts them into a maxHeap<string, int> with the most
+						//frequently occurring word at the top of the heap(priority queue).
+						for (auto pair : wordFreq)
+						{
+							maxHeap.push(pair);
+						}
+
+						//this iterates through all pairs of strings and ints within the maxHeap
+						//above and converts the position in the heap to a binary representation
+						//which will be used later on as substitutes for those words incompressed file.
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+						orderOffHeap = 0;
+
+						
+						while (maxHeap.empty() == false)
+						{
+							item = maxHeap.top().first;
+
+							compKey[item] = intToBinary(orderOffHeap);
+
+							orderOffHeap++;
+							maxHeap.pop();
+
+						}
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+						//this goes through the main_window buffer and transfers all
+						//non-words into the compBuffer and when a word is encountered,
+						//that word is replaced with its binary representation created above.
+						compBuffer.clear();
+						compBuffer.push_back(vector<int>{});						
+
+						for (auto row : buffer)
+						{
+							wordToReplace = "";
+
+							for (auto ch : row)
+							{
+								if (ch == NEWLINE)
+								{
+									compBuffer[comp_y].push_back('/n');
+									compBuffer.push_back(vector<int>{});
+									comp_y++;
+								}
+
+								else if (ch > 64 && ch < 91 || ch > 96 && ch < 123)
+								{
+									wordToReplace.push_back(ch);
+								}
+
+								else if (ch < 65 || ch > 91 || ch < 97 || ch > 122)
+								{
+
+									if (wordToReplace.size() > 0)
+									{
+										for (auto num : compKey[wordToReplace])
+										{
+											compBuffer[comp_y].push_back(char(num));																				
+										}
+
+									}
+
+									wordToReplace = "";
+
+									compBuffer[comp_y].push_back(char(ch));								
+									
+								}
+								//if (wordToReplace.size() > 0)
+								//{
+
+								//}
+							}
+						}
+
+
+						for (auto row : compBuffer)
+						{
+							for (auto ch : row)
+							{
+								outFile.put((ch));
+							}
+							outFile.put(10);
+						}
+
+						outFile.close();
+
+						if (inFile.is_open())
+						{
+							inFile.close();
+						}
+
+						codeFilename = filename + ".codes.txt";
+
+						strncpy_s(fname, codeFilename.c_str(), sizeof(codeFilename));
+						outFile.open(fname, std::ofstream::out | std::ofstream::trunc);
+
+						if (outFile.good())
+						{
+							for (auto i = compKey.begin(); i != compKey.end(); i++)
+							{	
+								for (auto value : i->second)
+								{
+									outFile.put(value);
+								}		
+								
+								outFile.put(' ');
+								outFile.put('=');
+								outFile.put(' ');
+
+								for (auto key: i->first)
+								{
+									outFile.put(key);
+								}
+								outFile.put(NEWLINE);
+							}
+						}
+
+						outFile.close();
+					}
+
+						if (!outFile.is_open())
+						{
+							attron(COLOR_PAIR(TERMTEXT));
+
+							mvprintw(term_rows - 1, term_cols - 50, "                                              ");
+
+							attroff(COLOR_PAIR(TERMTEXT));
+
+							attron(COLOR_PAIR(PROMPTCOLORS));
+
+							//exit prompt print
+							mvprintw(term_rows - 1, term_cols - 50, "Your file has been compressed! Press any key.");
+
+							attroff(COLOR_PAIR(PROMPTCOLORS)); //CHANGES COLOR BACK TO WINCOLORS
+
+							refresh();
+
+							getch();
+						}
+						else
+						{
+							attron(COLOR_PAIR(TERMTEXT));
+
+							mvprintw(term_rows - 1, term_cols - 50, "                                              ");
+
+							attroff(COLOR_PAIR(TERMTEXT));
+
+							attron(COLOR_PAIR(PROMPTCOLORS));
+
+							//exit prompt print
+							mvprintw(term_rows - 1, term_cols - 50, "An unknown error has occurred. Press any key.");
+
+							attroff(COLOR_PAIR(PROMPTCOLORS)); //CHANGES COLOR BACK TO WINCOLORS
+
+							refresh();
+
+							getch();
+						}
+
+					}
+
+
+				
+				else
+				{
+					attron(COLOR_PAIR(TERMTEXT));
+
+					mvprintw(term_rows - 1, term_cols - 50, "                                           ");
+
+					attroff(COLOR_PAIR(TERMTEXT));
+
+					attron(COLOR_PAIR(PROMPTCOLORS)); //CHANGES COLOR FOR PROMPT
+
+					mvprintw(term_rows - 1, term_cols - 50, "File saving cancelled. Press any key.");
+
+					attroff(COLOR_PAIR(PROMPTCOLORS)); //CHANGES COLOR BACK TO WINCOLORS
+
+					getch();
+
+				}
+
+
+
+
+				attron(COLOR_PAIR(TERMTEXT));
+
+				mvprintw(term_rows - 1, term_cols - 50, "                                               ");
+
+				attroff(COLOR_PAIR(TERMTEXT));
+				
+				compFilename.clear();
+
+				codeFilename.clear();
+
+				filename.clear();
+
+				orderOffHeap = 0;
+
+				refresh();
+
+/***
 				for (auto row : buffer)
 				{
 					for (auto ch : row)
@@ -1073,31 +1414,70 @@ int main(int argc, char* argv[])
 				
 				while (maxHeap.empty() == false)
 				{
-					string word = maxHeap.top().first;
+					string item = maxHeap.top().first;
 					int freq = maxHeap.top().second;
+					orderOffHeap = int(maxHeap.size());
 
-					while (freq > 0)
+
+					while (orderOffHeap > 0)
 					{
-						stack.push(freq&1);
-						freq >> 1;
-
+						//stack.push(orderOffHeap&1);
+						compKey[item] += orderOffHeap&1;
+						orderOffHeap = orderOffHeap >> 1;						
 					}
 					
-					while (stack.empty() == false)
-					{
-						compKey[word] += stack.top();
-					}
+					//while (stack.empty() == false)
+					//{
+					//	compKey[word] += stack.top();
+					//	stack.pop();
+					//}
 					
-
+					maxHeap.pop();
 
 				}
 
 
 
+				for (auto row : buffer)
+				{
+					for (auto ch : row)
+					{
+						string wordToReplace = "";
+
+						if (ch < 91 && ch >64 || ch > 96 && ch < 123)
+						{
+							wordToReplace += ch;
+						}
+						else if (ch == NEWLINE)
+						{
+
+						}
+						else
+						{
+							if (wordToReplace.size() > 0)
+							{
+								for(auto ch : compKey[word])
+								{
+
+									buffer[vector_y].insert(buffer[vector_y].begin() + vector_x, int(ch));
+									curs_x++;
+									printBuffer(main_window, buffer, output_tedge, output_bedge, output_ledge, output_redge);
+								}
+
+							}
+							wordToReplace = "";
+						}
+					}
+				}
+
+			
 
 
 
 
+
+
+**/
 
 
 
@@ -1182,6 +1562,7 @@ int main(int argc, char* argv[])
 
 
 
+
 bool confirm(void) {
 	char answer = getch();
 	switch (answer) {
@@ -1228,7 +1609,7 @@ void printBuffer(WINDOW* win, vector<vector <int> > buff, int frow, int lrow, in
 		{
 			for (int j = fcol; j < buff[i].size() && j < lcol; j++)
 			{
-				mvwaddch(win, scrn_y, scrn_x, buff[i][j]);
+				mvwaddch(win, scrn_y, scrn_x, char(buff[i][j]));
 				scrn_x++;
 			}
 
@@ -1238,6 +1619,29 @@ void printBuffer(WINDOW* win, vector<vector <int> > buff, int frow, int lrow, in
 		scrn_y++;
 	}
 	
+}
+
+string intToBinary(int some_number)
+{
+	//below code doesn't work for zero
+	if (some_number == 0)
+	{
+		return "0";
+	}
+
+	stack<uint8_t> bits{};
+	while (some_number > 0)
+	{
+		bits.push(some_number & 1);
+		some_number = some_number >> 1;
+	}
+	ostringstream result;
+	while (bits.empty() == false)
+	{
+		result << (short)bits.top();
+		bits.pop();
+	}
+	return result.str();
 }
 
 

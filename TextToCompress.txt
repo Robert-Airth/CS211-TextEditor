@@ -1,1 +1,4 @@
-berries apples berries apples pears apples 
+I made my text editor have some stuff. My text
+editor can do more stuff than last time I made it
+do stuff. I made it and I am happy with it. It now
+compresses stuff using binary stuff.
