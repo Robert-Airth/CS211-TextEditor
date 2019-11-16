@@ -1,7 +1,0 @@
-Hi my name is Robert Airth.
-
-I have added file-saving functionality to my text editor.
-
-I also refactored my buffer (2D vector) to be dynamic (as I should have done from the start)...
-
-
