@@ -1,4 +1,5 @@
-I made my text editor have some stuff. My text
-editor can do more stuff than last time I made it
-do stuff. I made it and I am happy with it. It now
-compresses stuff using binary stuff.
+Programming is the art of expressing solutions to problems 
+so that a computer can execute those solutions. Much of the 
+effort in programming is spent finding and refining solutions. 
+Often, a problem is only fully understood through the process 
+of programming a solution for it.

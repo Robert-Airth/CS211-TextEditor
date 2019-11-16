@@ -36,8 +36,18 @@
 #include <unordered_map>
 #include <sstream>
 
-using namespace std;
 
+using namespace std;
+/////////////////////////////////        classes                      ///////////////////////////////
+
+class PairComparer
+{
+public: 
+	bool operator()(const pair<string, int>& left, const pair<string, int>& right)
+	{
+		return left.second < right.second;
+	}
+};
 
 ////////////////////////////////          Function Prototypes            ////////////////////////////////
 bool confirm(void);
@@ -91,12 +101,12 @@ int main(int argc, char* argv[])
 
 
 	unordered_map<string, int> wordFreq;
-	priority_queue<pair<string, int>, vector<pair<string,int>>, greater<pair<string,int>>> maxHeap;
+	priority_queue<pair<string, int>, vector<pair<string,int>>, PairComparer> maxHeap;
 	string word = "";
 	unordered_map<string, string> compKey;
 	int orderOffHeap = 0;
 	int binConversion;
-	vector< vector<int> > compBuffer;
+	vector<int> compBuffer;
 	string item = "";
 	string wordToReplace = "";
 	int comp_y = 0;
@@ -244,9 +254,8 @@ int main(int argc, char* argv[])
 			
 
 
-			while (!inFile.eof())
-			{
-				inFile.get(fileChar);
+			while (inFile.get(fileChar))
+			{				
 
 				if (fileChar == 10)
 				{
@@ -749,9 +758,8 @@ int main(int argc, char* argv[])
 						int copy_y = 0;
 						int copy_x = 0;
 
-						while (!inFile.eof())
-						{
-							inFile.get(fileChar);
+						while (inFile.get(fileChar))
+						{						
 
 							if (fileChar == 10)
 							{
@@ -1214,8 +1222,7 @@ int main(int argc, char* argv[])
 						//this goes through the main_window buffer and transfers all
 						//non-words into the compBuffer and when a word is encountered,
 						//that word is replaced with its binary representation created above.
-						compBuffer.clear();
-						compBuffer.push_back(vector<int>{});						
+						compBuffer.clear();											
 
 						for (auto row : buffer)
 						{
@@ -1223,14 +1230,7 @@ int main(int argc, char* argv[])
 
 							for (auto ch : row)
 							{
-								if (ch == NEWLINE)
-								{
-									compBuffer[comp_y].push_back('/n');
-									compBuffer.push_back(vector<int>{});
-									comp_y++;
-								}
-
-								else if (ch > 64 && ch < 91 || ch > 96 && ch < 123)
+								if (ch > 64 && ch < 91 || ch > 96 && ch < 123)
 								{
 									wordToReplace.push_back(ch);
 								}
@@ -1242,31 +1242,33 @@ int main(int argc, char* argv[])
 									{
 										for (auto num : compKey[wordToReplace])
 										{
-											compBuffer[comp_y].push_back(char(num));																				
+											compBuffer.push_back(char(num));																				
 										}
-
 									}
 
 									wordToReplace = "";
 
-									compBuffer[comp_y].push_back(char(ch));								
-									
-								}
-								//if (wordToReplace.size() > 0)
-								//{
-
-								//}
+									compBuffer.push_back(char(ch));										
+								}								
 							}
+
+							if (wordToReplace.size() > 0)
+							{
+								for (auto num : compKey[wordToReplace])
+								{
+									compBuffer.push_back(char(num));
+								}
+								wordToReplace = "";
+							}
+
+							compBuffer.push_back(10);
+							
 						}
 
 
-						for (auto row : compBuffer)
-						{
-							for (auto ch : row)
-							{
+						for (auto ch : compBuffer)
+						{							
 								outFile.put((ch));
-							}
-							outFile.put(10);
 						}
 
 						outFile.close();
@@ -1385,99 +1387,7 @@ int main(int argc, char* argv[])
 
 				refresh();
 
-/***
-				for (auto row : buffer)
-				{
-					for (auto ch : row)
-					{
-						if (ch < 91 && ch >64 || ch > 96 && ch < 123)
-						{
-							word += ch;
-						}
-						else
-						{
-							if (word.size() > 0)
-							{
-								wordFreq[word]++;
-								
-							}
-							word = "";
-						}
-					}
-				}
 
-				for (auto pair : wordFreq)
-				{
-					maxHeap.push(pair);
-				}
-
-				
-				while (maxHeap.empty() == false)
-				{
-					string item = maxHeap.top().first;
-					int freq = maxHeap.top().second;
-					orderOffHeap = int(maxHeap.size());
-
-
-					while (orderOffHeap > 0)
-					{
-						//stack.push(orderOffHeap&1);
-						compKey[item] += orderOffHeap&1;
-						orderOffHeap = orderOffHeap >> 1;						
-					}
-					
-					//while (stack.empty() == false)
-					//{
-					//	compKey[word] += stack.top();
-					//	stack.pop();
-					//}
-					
-					maxHeap.pop();
-
-				}
-
-
-
-				for (auto row : buffer)
-				{
-					for (auto ch : row)
-					{
-						string wordToReplace = "";
-
-						if (ch < 91 && ch >64 || ch > 96 && ch < 123)
-						{
-							wordToReplace += ch;
-						}
-						else if (ch == NEWLINE)
-						{
-
-						}
-						else
-						{
-							if (wordToReplace.size() > 0)
-							{
-								for(auto ch : compKey[word])
-								{
-
-									buffer[vector_y].insert(buffer[vector_y].begin() + vector_x, int(ch));
-									curs_x++;
-									printBuffer(main_window, buffer, output_tedge, output_bedge, output_ledge, output_redge);
-								}
-
-							}
-							wordToReplace = "";
-						}
-					}
-				}
-
-			
-
-
-
-
-
-
-**/
 
 
 
