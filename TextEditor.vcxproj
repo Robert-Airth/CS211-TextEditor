@@ -127,6 +127,8 @@
     <ClInclude Include="curses.h" />
     <ClInclude Include="curspriv.h" />
     <ClInclude Include="panel.h" />
+    <ClInclude Include="Sorter.hpp" />
+    <ClInclude Include="Sorts.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="pdcurses.dll" />

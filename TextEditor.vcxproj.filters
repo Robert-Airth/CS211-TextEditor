@@ -27,6 +27,12 @@
     <ClInclude Include="..\2019-fall-cs211\projects\examples\tries\TrieTextPredict\Trie.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Sorter.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Sorts.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="pdcurses.dll">

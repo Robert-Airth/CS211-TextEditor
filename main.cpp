@@ -18,6 +18,11 @@
 #define DOWN_ARROW 258
 #define BACKSPACE 8
 #define NEWLINE 10
+#define INSERTION_SORT ctrl('i')
+#define SELECTION_SORT ctrl('o')
+#define BUBBLE_SORT ctrl('b')
+#define QUICK_SORT ctrl('q')
+
 
 
 
@@ -35,7 +40,7 @@
 #include <queue>
 #include <unordered_map>
 #include <sstream>
-
+#include "Sorts.hpp"
 
 using namespace std;
 /////////////////////////////////        classes                      ///////////////////////////////
@@ -115,6 +120,13 @@ int main(int argc, char* argv[])
 	string compFilename;
 	string codeFilename;
 
+
+	vector<string> wordsToSort{};
+	InsertionSort<string> iSort{};
+	SelectionSort<string> sSort{};
+	BubbleSort<string> bSort{};
+	QuickSort<string> qSort{};
+	vector<int> intVector{};
 	
 
 
@@ -1160,7 +1172,7 @@ int main(int argc, char* argv[])
 						filename.clear();
 						break;
 					}
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 					else if (outFile.good())
 
 					{
@@ -1203,7 +1215,7 @@ int main(int argc, char* argv[])
 						//this iterates through all pairs of strings and ints within the maxHeap
 						//above and converts the position in the heap to a binary representation
 						//which will be used later on as substitutes for those words incompressed file.
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 						orderOffHeap = 0;
 
 						
@@ -1217,7 +1229,7 @@ int main(int argc, char* argv[])
 							maxHeap.pop();
 
 						}
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
 						//this goes through the main_window buffer and transfers all
 						//non-words into the compBuffer and when a word is encountered,
@@ -1386,15 +1398,193 @@ int main(int argc, char* argv[])
 				orderOffHeap = 0;
 
 				refresh();
+							   				 			  			  
+				break;
 
+			case (INSERTION_SORT):
 
+				for (auto row : buffer)
+				{
+					for (auto ch : row)
+					{
+						ch = tolower(ch);
 
+						if (ch < 91 && ch >64 || ch > 96 && ch < 123)
+						{
+							word += ch;
+						}
+						else
+						{
+							if (word.size() > 0)
+							{
+								wordsToSort.push_back(word);
+							}
+							word = "";
+						}
+					}
+					if (word.size() > 0)
+					{
+						wordsToSort.push_back(word);
+						word = "";
+					}
+				}			
 
+				iSort.sort(wordsToSort);
 
+				for (auto word : wordsToSort)
+				{
+					for (auto letter : word)
+					{
+						intVector.push_back(int(letter));
+					}
+					intVector.push_back(' ');
+				}
+
+				buffer.push_back(intVector);
+
+				intVector.clear();
+				wordsToSort.clear();
 
 				break;
 
+			case (SELECTION_SORT):
 
+				for (auto row : buffer)
+				{
+					for (auto ch : row)
+					{
+						ch = tolower(ch);
+
+						if (ch < 91 && ch >64 || ch > 96 && ch < 123)
+						{
+							word += ch;
+						}
+						else
+						{
+							if (word.size() > 0)
+							{
+								wordsToSort.push_back(word);
+							}
+							word = "";
+						}
+					}
+					if (word.size() > 0)
+					{
+						wordsToSort.push_back(word);
+						word = "";
+					}
+				}
+
+				sSort.sort(wordsToSort);
+
+				for (auto word : wordsToSort)
+				{
+					for (auto letter : word)
+					{
+						intVector.push_back(int(letter));
+					}
+					intVector.push_back(' ');
+				}
+
+				buffer.push_back(intVector);
+
+				intVector.clear();
+				wordsToSort.clear();
+
+				break;
+
+			case (BUBBLE_SORT):
+
+				for (auto row : buffer)
+				{
+					for (auto ch : row)
+					{
+						ch = tolower(ch);
+
+						if (ch < 91 && ch >64 || ch > 96 && ch < 123)
+						{
+							word += ch;
+						}
+						else
+						{
+							if (word.size() > 0)
+							{
+								wordsToSort.push_back(word);
+							}
+							word = "";
+						}
+					}
+					if (word.size() > 0)
+					{
+						wordsToSort.push_back(word);
+						word = "";
+					}
+				}
+
+				bSort.sort(wordsToSort);
+
+				for (auto word : wordsToSort)
+				{
+					for (auto letter : word)
+					{
+						intVector.push_back(int(letter));
+					}
+					intVector.push_back(' ');
+				}
+
+				buffer.push_back(intVector);
+
+				intVector.clear();
+				wordsToSort.clear();
+
+				break;
+
+			case (QUICK_SORT):
+
+				for (auto row : buffer)
+				{
+					for (auto ch : row)
+					{
+						ch = tolower(ch);
+
+						if (ch < 91 && ch >64 || ch > 96 && ch < 123)
+						{
+							word += ch;
+						}
+						else
+						{
+							if (word.size() > 0)
+							{
+								wordsToSort.push_back(word);
+							}
+							word = "";
+						}
+					}
+					if (word.size() > 0)
+					{
+						wordsToSort.push_back(word);
+						word = "";
+					}
+				}
+
+				qSort.sort(wordsToSort);
+
+				for (auto word : wordsToSort)
+				{
+					for (auto letter : word)
+					{
+						intVector.push_back(int(letter));
+					}
+					intVector.push_back(' ');
+				}
+
+				buffer.push_back(intVector);
+
+				intVector.clear();
+				wordsToSort.clear();
+
+
+				break;
 
 
 			default:
