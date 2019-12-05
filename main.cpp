@@ -210,7 +210,8 @@ int main(int argc, char* argv[])
 	//Terminal text at the top and bottom of the window	
 	attron(COLOR_PAIR(TERMTEXT));
 	mvprintw(0, 3, "Welcome to the Airth Text Editor!    | ESC - Quit |");
-	mvprintw(term_rows - 1, 3, "CTRL + : S =Save , L =Load , N =New , A =Predict, K =Compress");
+	mvprintw(term_rows - 2, 1, "   CTRL + : S =Save , L =Load , N =New , A =Predict, K =Compress                                                                   ");
+	mvprintw(term_rows - 1, 1, "            I =Insertion sort, O =Selection sort, B =Bubble sort, Q =Quicksort");
 
 	attroff(COLOR_PAIR(TERMTEXT));
 	
@@ -239,19 +240,19 @@ int main(int argc, char* argv[])
 		{
 			attron(COLOR_PAIR(TERMTEXT));
 			//
-			mvprintw(term_rows - 1, term_cols - 50, "                                           ");
+			mvprintw(term_rows - 2, term_cols - 50, "                                                          ");
 			//
 			attroff(COLOR_PAIR(TERMTEXT));
 
 			attron(COLOR_PAIR(PROMPTCOLORS)); //CHANGES COLOR FOR PROMPT
 
-			mvprintw(term_rows - 1, term_cols - 50, "File loading has failed");
+			mvprintw(term_rows - 2, term_cols - 50, "File loading has failed");
 
 			attroff(COLOR_PAIR(PROMPTCOLORS)); //CHANGES COLOR BACK TO WINCOLORS	
 
 			attron(COLOR_PAIR(TERMTEXT));
 
-			mvprintw(term_rows - 1, term_cols - 50, "                                           ");
+			mvprintw(term_rows - 2, term_cols - 50, "                                                          ");
 
 			attroff(COLOR_PAIR(TERMTEXT));
 
@@ -297,14 +298,14 @@ int main(int argc, char* argv[])
 
 			attron(COLOR_PAIR(TERMTEXT));
 
-			mvprintw(term_rows - 1, term_cols - 50, "                                           ");
+			mvprintw(term_rows - 2, term_cols - 50, "                                                     ");
 
 			attroff(COLOR_PAIR(TERMTEXT));
 
 			attron(COLOR_PAIR(PROMPTCOLORS));
 
 			//exit prompt print
-			mvprintw(term_rows - 1, term_cols - 50, "Your file has been loaded! Press Any Key.");
+			mvprintw(term_rows - 2, term_cols - 50, "Your file has been loaded! Press Any Key.");
 
 			mvprintw(0, term_cols-30, argv[1]);
 
@@ -316,7 +317,7 @@ int main(int argc, char* argv[])
 
 			attron(COLOR_PAIR(TERMTEXT));
 
-			mvprintw(term_rows - 1, term_cols - 50, "                                           ");
+			mvprintw(term_rows - 2, term_cols - 50, "                                                     ");
 
 			attroff(COLOR_PAIR(TERMTEXT));
 
@@ -408,7 +409,7 @@ int main(int argc, char* argv[])
 				//changes color for prompt
 				attron(COLOR_PAIR(PROMPTCOLORS));
 				//exit prompt print
-				mvprintw(term_rows - 1, term_cols - 50, "Are you sure you want to quit? Y or N");
+				mvprintw(term_rows - 2, term_cols - 50, "Are you sure you want to quit? Y or N");
 
 
 
@@ -418,7 +419,7 @@ int main(int argc, char* argv[])
 
 				quit = confirm();
 
-				mvprintw(term_rows - 1, term_cols - 45, "                                        ");
+				mvprintw(term_rows - 2, term_cols - 45, "                                                  ");
 
 				if (!quit)
 				{
@@ -430,7 +431,7 @@ int main(int argc, char* argv[])
 				//changes color for prompt
 				attron(COLOR_PAIR(PROMPTCOLORS));
 
-				mvprintw(term_rows - 1, term_cols - 50, "Would you like to save your file? Y or N");
+				mvprintw(term_rows - 2, term_cols - 50, "Would you like to save your file? Y or N");
 
 
 				attroff(COLOR_PAIR(PROMPTCOLORS)); //CHANGES COLOR BACK TO WINCOLORS
@@ -442,7 +443,7 @@ int main(int argc, char* argv[])
 					attron(COLOR_PAIR(PROMPTCOLORS));
 
 					//exit prompt print
-					mvprintw(term_rows - 1, term_cols - 50, "Your file has been saved! Press any key.");
+					mvprintw(term_rows - 2, term_cols - 50, "Your file has been saved! Press any key.");
 
 					attroff(COLOR_PAIR(PROMPTCOLORS)); //CHANGES COLOR BACK TO WINCOLORS
 
@@ -450,7 +451,7 @@ int main(int argc, char* argv[])
 
 					input = wgetch(main_window);
 
-					mvprintw(term_rows - 1, term_cols - 50, "                                           ");
+					mvprintw(term_rows - 2, term_cols - 50, "                                                    ");
 
 					attroff(COLOR_PAIR(TERMTEXT));
 
@@ -461,7 +462,7 @@ int main(int argc, char* argv[])
 				{
 					attron(COLOR_PAIR(PROMPTCOLORS));
 
-					mvprintw(term_rows - 1, term_cols - 50, "Your file has not been saved! Press any key.");
+					mvprintw(term_rows - 2, term_cols - 50, "Your file has not been saved! Press any key.");
 
 					attroff(COLOR_PAIR(PROMPTCOLORS)); //CHANGES COLOR BACK TO WINCOLORS
 
@@ -469,7 +470,7 @@ int main(int argc, char* argv[])
 
 					input = wgetch(main_window);
 
-					mvprintw(term_rows - 1, term_cols - 50, "                                           ");
+					mvprintw(term_rows - 2, term_cols - 50, "                                                     ");
 
 					attroff(COLOR_PAIR(TERMTEXT));
 
@@ -483,7 +484,7 @@ int main(int argc, char* argv[])
 
 				attron(COLOR_PAIR(PROMPTCOLORS)); //CHANGES COLOR FOR PROMPT
 
-				mvprintw(term_rows - 1, term_cols - 50, "Would you like to save your file? Y or N");
+				mvprintw(term_rows - 2, term_cols - 50, "Would you like to save your file? Y or N");
 
 				attroff(COLOR_PAIR(PROMPTCOLORS)); //CHANGES COLOR BACK TO WINCOLORS
 
@@ -497,13 +498,13 @@ int main(int argc, char* argv[])
 
 					attron(COLOR_PAIR(TERMTEXT));
 
-					mvprintw(term_rows - 1, term_cols - 50, "                                           ");
+					mvprintw(term_rows - 2, term_cols - 50, "                                                     ");
 
 					attroff(COLOR_PAIR(TERMTEXT));
 
 					attron(COLOR_PAIR(PROMPTCOLORS)); //CHANGES COLOR FOR PROMPT
 
-					mvprintw(term_rows - 1, term_cols - 50, "What is the name and extension of this file?");
+					mvprintw(term_rows - 2, term_cols - 50, "What is the name and extension of this file?");
 
 					attroff(COLOR_PAIR(PROMPTCOLORS)); //CHANGES COLOR BACK TO WINCOLORS
 
@@ -543,13 +544,13 @@ int main(int argc, char* argv[])
 					{
 						attron(COLOR_PAIR(TERMTEXT));
 
-						mvprintw(term_rows - 1, term_cols - 50, "                                                  ");
+						mvprintw(term_rows - 2, term_cols - 50, "                                                            ");
 
 						attroff(COLOR_PAIR(TERMTEXT));
 
 						attron(COLOR_PAIR(PROMPTCOLORS)); //CHANGES COLOR FOR PROMPT
 
-						mvprintw(term_rows - 1, term_cols - 50, "Your file has NOT been saved! Press any key.");
+						mvprintw(term_rows - 2, term_cols - 50, "Your file has NOT been saved! Press any key.");
 
 						attroff(COLOR_PAIR(PROMPTCOLORS)); //CHANGES COLOR BACK TO WINCOLORS	
 
@@ -557,7 +558,7 @@ int main(int argc, char* argv[])
 
 						attron(COLOR_PAIR(TERMTEXT));
 
-						mvprintw(term_rows - 1, term_cols - 50, "                                              ");
+						mvprintw(term_rows - 2, term_cols - 50, "                                                       ");
 
 						attroff(COLOR_PAIR(TERMTEXT));
 
@@ -595,14 +596,14 @@ int main(int argc, char* argv[])
 						{
 							attron(COLOR_PAIR(TERMTEXT));
 
-							mvprintw(term_rows - 1, term_cols - 50, "                                              ");
-
+							mvprintw(term_rows - 2, term_cols - 50, "                                                        ");
+							
 							attroff(COLOR_PAIR(TERMTEXT));
 
 							attron(COLOR_PAIR(PROMPTCOLORS));
 
 							//exit prompt print
-							mvprintw(term_rows - 1, term_cols - 50, "Your file has been saved! Press any key.");
+							mvprintw(term_rows - 2, term_cols - 50, "Your file has been saved! Press any key.");
 
 							attroff(COLOR_PAIR(PROMPTCOLORS)); //CHANGES COLOR BACK TO WINCOLORS
 
@@ -614,14 +615,14 @@ int main(int argc, char* argv[])
 						{
 							attron(COLOR_PAIR(TERMTEXT));
 
-							mvprintw(term_rows - 1, term_cols - 50, "                                              ");
+							mvprintw(term_rows - 2, term_cols - 50, "                                                        ");
 
 							attroff(COLOR_PAIR(TERMTEXT));
 
 							attron(COLOR_PAIR(PROMPTCOLORS));
 
 							//exit prompt print
-							mvprintw(term_rows - 1, term_cols - 50, "An unknown error has occurred. Press any key.");
+							mvprintw(term_rows - 2, term_cols - 50, "An unknown error has occurred. Press any key.");
 
 							attroff(COLOR_PAIR(PROMPTCOLORS)); //CHANGES COLOR BACK TO WINCOLORS
 
@@ -638,13 +639,13 @@ int main(int argc, char* argv[])
 				{
 					attron(COLOR_PAIR(TERMTEXT));
 
-					mvprintw(term_rows - 1, term_cols - 50, "                                           ");
+					mvprintw(term_rows - 2, term_cols - 50, "                                                     ");
 
 					attroff(COLOR_PAIR(TERMTEXT));
 
 					attron(COLOR_PAIR(PROMPTCOLORS)); //CHANGES COLOR FOR PROMPT
 
-					mvprintw(term_rows - 1, term_cols - 50, "File saving cancelled. Press any key.");
+					mvprintw(term_rows - 2, term_cols - 50, "File saving cancelled. Press any key.");
 
 					attroff(COLOR_PAIR(PROMPTCOLORS)); //CHANGES COLOR BACK TO WINCOLORS
 
@@ -657,7 +658,7 @@ int main(int argc, char* argv[])
 
 				attron(COLOR_PAIR(TERMTEXT));
 
-				mvprintw(term_rows - 1, term_cols - 50, "                                           ");
+				mvprintw(term_rows - 2, term_cols - 50, "                                                     ");
 
 				attroff(COLOR_PAIR(TERMTEXT));
 
@@ -667,7 +668,7 @@ int main(int argc, char* argv[])
 			case (LOAD):
 				attron(COLOR_PAIR(PROMPTCOLORS)); //CHANGES COLOR FOR PROMPT
 
-				mvprintw(term_rows - 1, term_cols - 50, "Would you like to load a file? Y or N");
+				mvprintw(term_rows - 2, term_cols - 50, "Would you like to load a file? Y or N");
 
 				attroff(COLOR_PAIR(PROMPTCOLORS)); //CHANGES COLOR BACK TO WINCOLORS
 
@@ -682,13 +683,13 @@ int main(int argc, char* argv[])
 
 					attron(COLOR_PAIR(TERMTEXT));
 
-					mvprintw(term_rows - 1, term_cols - 50, "                                           ");
+					mvprintw(term_rows - 2, term_cols - 50, "                                                     ");
 
 					attroff(COLOR_PAIR(TERMTEXT));
 
 					attron(COLOR_PAIR(PROMPTCOLORS)); //CHANGES COLOR FOR PROMPT
 
-					mvprintw(term_rows - 1, term_cols - 50, "What is the name of the .txt file?");
+					mvprintw(term_rows - 2, term_cols - 50, "What is the name of the .txt file?");
 
 					attroff(COLOR_PAIR(PROMPTCOLORS)); //CHANGES COLOR BACK TO WINCOLORS
 
@@ -728,13 +729,13 @@ int main(int argc, char* argv[])
 					{
 						attron(COLOR_PAIR(TERMTEXT));
 
-						mvprintw(term_rows - 1, term_cols - 50, "                                           ");
+						mvprintw(term_rows - 2, term_cols - 50, "                                                     ");
 
 						attroff(COLOR_PAIR(TERMTEXT));
 
 						attron(COLOR_PAIR(PROMPTCOLORS)); //CHANGES COLOR FOR PROMPT
 
-						mvprintw(term_rows - 1, term_cols - 50, "File loading has failed. Press any key.");
+						mvprintw(term_rows - 2, term_cols - 50, "File loading has failed. Press any key.");
 
 						attroff(COLOR_PAIR(PROMPTCOLORS)); //CHANGES COLOR BACK TO WINCOLORS	
 
@@ -742,7 +743,7 @@ int main(int argc, char* argv[])
 
 						attron(COLOR_PAIR(TERMTEXT));
 
-						mvprintw(term_rows - 1, term_cols - 50, "                                           ");
+						mvprintw(term_rows - 2, term_cols - 50, "                                                    ");
 
 						attroff(COLOR_PAIR(TERMTEXT));
 
@@ -797,14 +798,14 @@ int main(int argc, char* argv[])
 
 						attron(COLOR_PAIR(TERMTEXT));
 
-						mvprintw(term_rows - 1, term_cols - 50, "                                           ");
+						mvprintw(term_rows - 2, term_cols - 50, "                                                     ");
 
 						attroff(COLOR_PAIR(TERMTEXT));
 
 						attron(COLOR_PAIR(PROMPTCOLORS));
 
 						//exit prompt print
-						mvprintw(term_rows - 1, term_cols - 50, "Your file has been loaded! Press any key");
+						mvprintw(term_rows - 2, term_cols - 50, "Your file has been loaded! Press any key");
 
 						attroff(COLOR_PAIR(PROMPTCOLORS)); //CHANGES COLOR BACK TO WINCOLORS
 
@@ -822,7 +823,7 @@ int main(int argc, char* argv[])
 
 					attron(COLOR_PAIR(PROMPTCOLORS)); //CHANGES COLOR FOR PROMPT
 
-					mvprintw(term_rows - 1, term_cols - 50, "File loading cancelled. Press any key.");
+					mvprintw(term_rows - 2, term_cols - 50, "File loading cancelled. Press any key.");
 
 					attroff(COLOR_PAIR(PROMPTCOLORS)); //CHANGES COLOR BACK TO WINCOLORS
 
@@ -835,7 +836,7 @@ int main(int argc, char* argv[])
 
 				attron(COLOR_PAIR(TERMTEXT));
 
-				mvprintw(term_rows - 1, term_cols - 50, "                                           ");
+				mvprintw(term_rows - 2, term_cols - 50, "                                                     ");
 
 				attroff(COLOR_PAIR(TERMTEXT));
 
@@ -1080,7 +1081,7 @@ int main(int argc, char* argv[])
 
 				attron(COLOR_PAIR(PROMPTCOLORS)); //CHANGES COLOR FOR PROMPT
 
-				mvprintw(term_rows - 1, term_cols - 50, "Would you like to compress this file? Y or N");
+				mvprintw(term_rows - 2, term_cols - 50, "Would you like to compress this file? Y or N");
 
 				attroff(COLOR_PAIR(PROMPTCOLORS)); //CHANGES COLOR BACK TO WINCOLORS
 
@@ -1094,13 +1095,13 @@ int main(int argc, char* argv[])
 
 					attron(COLOR_PAIR(TERMTEXT));
 
-					mvprintw(term_rows - 1, term_cols - 50, "                                               ");
+					mvprintw(term_rows - 2, term_cols - 50, "                                                         ");
 
 					attroff(COLOR_PAIR(TERMTEXT));
 
 					attron(COLOR_PAIR(PROMPTCOLORS)); //CHANGES COLOR FOR PROMPT
 
-					mvprintw(term_rows - 1, term_cols - 50, "What is the name and extension of this file?");
+					mvprintw(term_rows - 2, term_cols - 50, "What is the name and extension of this file?");
 
 					attroff(COLOR_PAIR(PROMPTCOLORS)); //CHANGES COLOR BACK TO WINCOLORS
 
@@ -1140,13 +1141,13 @@ int main(int argc, char* argv[])
 					{
 						attron(COLOR_PAIR(TERMTEXT));
 
-						mvprintw(term_rows - 1, term_cols - 50, "                                                  ");
+						mvprintw(term_rows - 2, term_cols - 50, "                                                            ");
 
 						attroff(COLOR_PAIR(TERMTEXT));
 
 						attron(COLOR_PAIR(PROMPTCOLORS)); //CHANGES COLOR FOR PROMPT
 
-						mvprintw(term_rows - 1, term_cols - 50, "Your file has NOT been compressed! Press any key.");
+						mvprintw(term_rows - 2, term_cols - 50, "Your file has NOT been compressed! Press any key.");
 
 						attroff(COLOR_PAIR(PROMPTCOLORS)); //CHANGES COLOR BACK TO WINCOLORS	
 
@@ -1154,7 +1155,7 @@ int main(int argc, char* argv[])
 
 						attron(COLOR_PAIR(TERMTEXT));
 
-						mvprintw(term_rows - 1, term_cols - 50, "                                                  ");
+						mvprintw(term_rows - 2, term_cols - 50, "                                                            ");
 
 						attroff(COLOR_PAIR(TERMTEXT));
 
@@ -1323,14 +1324,14 @@ int main(int argc, char* argv[])
 						{
 							attron(COLOR_PAIR(TERMTEXT));
 
-							mvprintw(term_rows - 1, term_cols - 50, "                                              ");
+							mvprintw(term_rows - 2, term_cols - 50, "                                                        ");
 
 							attroff(COLOR_PAIR(TERMTEXT));
 
 							attron(COLOR_PAIR(PROMPTCOLORS));
 
 							//exit prompt print
-							mvprintw(term_rows - 1, term_cols - 50, "Your file has been compressed! Press any key.");
+							mvprintw(term_rows - 2, term_cols - 50, "Your file has been compressed! Press any key.");
 
 							attroff(COLOR_PAIR(PROMPTCOLORS)); //CHANGES COLOR BACK TO WINCOLORS
 
@@ -1342,14 +1343,14 @@ int main(int argc, char* argv[])
 						{
 							attron(COLOR_PAIR(TERMTEXT));
 
-							mvprintw(term_rows - 1, term_cols - 50, "                                              ");
+							mvprintw(term_rows - 2, term_cols - 50, "                                                        ");
 
 							attroff(COLOR_PAIR(TERMTEXT));
 
 							attron(COLOR_PAIR(PROMPTCOLORS));
 
 							//exit prompt print
-							mvprintw(term_rows - 1, term_cols - 50, "An unknown error has occurred. Press any key.");
+							mvprintw(term_rows - 2, term_cols - 50, "An unknown error has occurred. Press any key.");
 
 							attroff(COLOR_PAIR(PROMPTCOLORS)); //CHANGES COLOR BACK TO WINCOLORS
 
@@ -1366,13 +1367,13 @@ int main(int argc, char* argv[])
 				{
 					attron(COLOR_PAIR(TERMTEXT));
 
-					mvprintw(term_rows - 1, term_cols - 50, "                                           ");
+					mvprintw(term_rows - 2, term_cols - 50, "                                                     ");
 
 					attroff(COLOR_PAIR(TERMTEXT));
 
 					attron(COLOR_PAIR(PROMPTCOLORS)); //CHANGES COLOR FOR PROMPT
 
-					mvprintw(term_rows - 1, term_cols - 50, "File saving cancelled. Press any key.");
+					mvprintw(term_rows - 2, term_cols - 50, "File saving cancelled. Press any key.");
 
 					attroff(COLOR_PAIR(PROMPTCOLORS)); //CHANGES COLOR BACK TO WINCOLORS
 
@@ -1385,7 +1386,7 @@ int main(int argc, char* argv[])
 
 				attron(COLOR_PAIR(TERMTEXT));
 
-				mvprintw(term_rows - 1, term_cols - 50, "                                               ");
+				mvprintw(term_rows - 2, term_cols - 50, "                                                         ");
 
 				attroff(COLOR_PAIR(TERMTEXT));
 				
@@ -1648,7 +1649,7 @@ int main(int argc, char* argv[])
 
 
 		//any key to exit prompt
-		mvprintw(term_rows - 1, term_cols - 50, "Press any key to escape");
+		mvprintw(term_rows - 2, term_cols - 50, "Press any key to escape");
 
 
 		attroff(COLOR_PAIR(PROMPTCOLORS)); //CHANGES COLOR BACK TO WINCOLORS
