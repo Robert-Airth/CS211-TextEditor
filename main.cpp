@@ -210,8 +210,8 @@ int main(int argc, char* argv[])
 	//Terminal text at the top and bottom of the window	
 	attron(COLOR_PAIR(TERMTEXT));
 	mvprintw(0, 3, "Welcome to the Airth Text Editor!    | ESC - Quit |");
-	mvprintw(term_rows - 2, 1, "   CTRL + : S =Save , L =Load , N =New , A =Predict, K =Compress                                                                   ");
-	mvprintw(term_rows - 1, 1, "            I =Insertion sort, O =Selection sort, B =Bubble sort, Q =Quicksort");
+	mvprintw(term_rows - 2, 1, "   CTRL + : |S| Save |L| Load |N| New  |A| Predict |K| Compress                                                                   ");
+	mvprintw(term_rows - 1, 1, "            |I| Insertion sort |O| Selection sort |B| Bubble sort |Q| Quicksort");
 
 	attroff(COLOR_PAIR(TERMTEXT));
 	
@@ -380,8 +380,9 @@ int main(int argc, char* argv[])
 
 				//add Welcome String to the screen
 				attron(COLOR_PAIR(TERMTEXT)); //CHANGES COLOR FOR PROMPT
-				mvprintw(0, 3, "Welcome to the Airth Text Editor!");
-				mvprintw(term_rows - 1, 3, "CTRL + : S =Save , L =Load , N =New , A =Predict, K =Compress");
+				mvprintw(0, 3, "Welcome to the Airth Text Editor!    | ESC - Quit |");
+				mvprintw(term_rows - 2, 1, "   CTRL + : |S| Save |L| Load |N| New  |A| Predict |K| Compress                                                                   ");
+				mvprintw(term_rows - 1, 1, "            |I| Insertion sort |O| Selection sort |B| Bubble sort |Q| Quicksort");
 				attroff(COLOR_PAIR(TERMTEXT)); //CHANGES COLOR BACK TO WINCOLORS
 
 				//get new window edges
@@ -1440,8 +1441,10 @@ int main(int argc, char* argv[])
 					}
 					intVector.push_back(' ');
 				}
+				
+				buffer.clear();
 
-				buffer.push_back(intVector);
+				buffer.push_back(intVector);				
 
 				intVector.clear();
 				wordsToSort.clear();
@@ -1486,6 +1489,8 @@ int main(int argc, char* argv[])
 					}
 					intVector.push_back(' ');
 				}
+
+				buffer.clear();
 
 				buffer.push_back(intVector);
 
@@ -1533,6 +1538,8 @@ int main(int argc, char* argv[])
 					intVector.push_back(' ');
 				}
 
+				buffer.clear();
+
 				buffer.push_back(intVector);
 
 				intVector.clear();
@@ -1578,6 +1585,8 @@ int main(int argc, char* argv[])
 					}
 					intVector.push_back(' ');
 				}
+
+				buffer.clear();
 
 				buffer.push_back(intVector);
 

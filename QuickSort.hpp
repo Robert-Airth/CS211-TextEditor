@@ -30,10 +30,10 @@ private:
 		//must be size 3 or larger
 
 		//find pivot
-		T& first_item = data[start_index];
-		T& last_item = data[end_index];
+		T first_item = data[start_index];
+		T last_item = data[end_index];
 		int mid_index = (start_index + end_index) / 2;
-		T& middle_item = data[mid_index];
+		T middle_item = data[mid_index];
 		int pivot_index = start_index;
 
 
@@ -55,7 +55,7 @@ private:
 		}
 
 		//swap pivot with end index
-		T& pivot_value = data[pivot_index];
+		T pivot_value = data[pivot_index];
 		data[pivot_index] = data[end_index];
 		data[end_index] = pivot_value;
 
@@ -77,7 +77,7 @@ private:
 			{
 				i++;
 			}
-			while (data[j] > pivot_value && i < j)
+			while (data[j] >= pivot_value && i < j)
 			{
 				j--;
 			}
@@ -90,7 +90,7 @@ private:
 		}
 
 		//swap pivot back
-		T& temp = data[i];
+		T temp = data[i];
 		data[i] = pivot_value;
 		data[end_index] = temp;
 
