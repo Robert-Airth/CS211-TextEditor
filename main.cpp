@@ -127,7 +127,12 @@ int main(int argc, char* argv[])
 	BubbleSort<string> bSort{};
 	QuickSort<string> qSort{};
 	vector<int> intVector{};
-	
+	vector<vector<int>> sortedBuffer{};
+	queue<int> sortQueue;
+	int rowCounter = 0;
+	int wordCounter = 0;
+
+
 
 
 	//initialize the terminal
@@ -1431,7 +1436,9 @@ int main(int argc, char* argv[])
 					}
 				}			
 
-				iSort.sort(wordsToSort);
+				iSort.sort(wordsToSort);					
+
+				
 
 				for (auto word : wordsToSort)
 				{
@@ -1441,10 +1448,50 @@ int main(int argc, char* argv[])
 					}
 					intVector.push_back(' ');
 				}
-				
-				buffer.clear();
 
-				buffer.push_back(intVector);				
+				for (auto letter : intVector)
+				{
+					sortQueue.push(letter);
+				}
+
+
+				//buffer.push_back(intVector);		
+
+				for (auto row : buffer)
+				{
+					sortedBuffer.push_back(vector<int>{});
+
+					for (auto ch : row)
+					{
+						if (ch > 64 && ch < 91 || ch > 96 && ch < 123)
+						{
+							word+=char(ch);
+						}							
+						else 
+						{
+							wordCounter++;
+							word = "";
+						}
+						
+					}
+					if (word.size() > 0) wordCounter++;
+					word = "";
+
+					while (wordCounter > 0 && sortQueue.empty() == false)
+					{
+						while (sortQueue.front() != 32)
+						{
+							sortedBuffer[rowCounter].push_back(sortQueue.front());
+							sortQueue.pop();
+						}
+						sortedBuffer[rowCounter].push_back(' ');
+						if(sortQueue.empty() == false) sortQueue.pop();
+						wordCounter--;
+					}
+					rowCounter++;
+				}
+
+				buffer = sortedBuffer;			
 
 				intVector.clear();
 				wordsToSort.clear();
@@ -1477,9 +1524,11 @@ int main(int argc, char* argv[])
 						wordsToSort.push_back(word);
 						word = "";
 					}
-				}
+				}			
 
-				sSort.sort(wordsToSort);
+				sSort.sort(wordsToSort);					
+
+				
 
 				for (auto word : wordsToSort)
 				{
@@ -1490,9 +1539,49 @@ int main(int argc, char* argv[])
 					intVector.push_back(' ');
 				}
 
-				buffer.clear();
+				for (auto letter : intVector)
+				{
+					sortQueue.push(letter);
+				}
 
-				buffer.push_back(intVector);
+
+				//buffer.push_back(intVector);		
+
+				for (auto row : buffer)
+				{
+					sortedBuffer.push_back(vector<int>{});
+
+					for (auto ch : row)
+					{
+						if (ch > 64 && ch < 91 || ch > 96 && ch < 123)
+						{
+							word+=char(ch);
+						}							
+						else 
+						{
+							wordCounter++;
+							word = "";
+						}
+						
+					}
+					if (word.size() > 0) wordCounter++;
+					word = "";
+
+					while (wordCounter > 0 && sortQueue.empty() == false)
+					{
+						while (sortQueue.front() != 32)
+						{
+							sortedBuffer[rowCounter].push_back(sortQueue.front());
+							sortQueue.pop();
+						}
+						sortedBuffer[rowCounter].push_back(' ');
+						if(sortQueue.empty() == false) sortQueue.pop();
+						wordCounter--;
+					}
+					rowCounter++;
+				}
+
+				buffer = sortedBuffer;			
 
 				intVector.clear();
 				wordsToSort.clear();
@@ -1529,6 +1618,8 @@ int main(int argc, char* argv[])
 
 				bSort.sort(wordsToSort);
 
+
+
 				for (auto word : wordsToSort)
 				{
 					for (auto letter : word)
@@ -1538,9 +1629,49 @@ int main(int argc, char* argv[])
 					intVector.push_back(' ');
 				}
 
-				buffer.clear();
+				for (auto letter : intVector)
+				{
+					sortQueue.push(letter);
+				}
 
-				buffer.push_back(intVector);
+
+				//buffer.push_back(intVector);		
+
+				for (auto row : buffer)
+				{
+					sortedBuffer.push_back(vector<int>{});
+
+					for (auto ch : row)
+					{
+						if (ch > 64 && ch < 91 || ch > 96 && ch < 123)
+						{
+							word += char(ch);
+						}
+						else
+						{
+							wordCounter++;
+							word = "";
+						}
+
+					}
+					if (word.size() > 0) wordCounter++;
+					word = "";
+
+					while (wordCounter > 0 && sortQueue.empty() == false)
+					{
+						while (sortQueue.front() != 32)
+						{
+							sortedBuffer[rowCounter].push_back(sortQueue.front());
+							sortQueue.pop();
+						}
+						sortedBuffer[rowCounter].push_back(' ');
+						if (sortQueue.empty() == false) sortQueue.pop();
+						wordCounter--;
+					}
+					rowCounter++;
+				}
+
+				buffer = sortedBuffer;
 
 				intVector.clear();
 				wordsToSort.clear();
@@ -1575,7 +1706,9 @@ int main(int argc, char* argv[])
 					}
 				}
 
-				qSort.sort(wordsToSort);
+				bSort.sort(wordsToSort);
+
+
 
 				for (auto word : wordsToSort)
 				{
@@ -1586,13 +1719,52 @@ int main(int argc, char* argv[])
 					intVector.push_back(' ');
 				}
 
-				buffer.clear();
+				for (auto letter : intVector)
+				{
+					sortQueue.push(letter);
+				}
 
-				buffer.push_back(intVector);
+
+				//buffer.push_back(intVector);		
+
+				for (auto row : buffer)
+				{
+					sortedBuffer.push_back(vector<int>{});
+
+					for (auto ch : row)
+					{
+						if (ch > 64 && ch < 91 || ch > 96 && ch < 123)
+						{
+							word += char(ch);
+						}
+						else
+						{
+							wordCounter++;
+							word = "";
+						}
+
+					}
+					if (word.size() > 0) wordCounter++;
+					word = "";
+
+					while (wordCounter > 0 && sortQueue.empty() == false)
+					{
+						while (sortQueue.front() != 32)
+						{
+							sortedBuffer[rowCounter].push_back(sortQueue.front());
+							sortQueue.pop();
+						}
+						sortedBuffer[rowCounter].push_back(' ');
+						if (sortQueue.empty() == false) sortQueue.pop();
+						wordCounter--;
+					}
+					rowCounter++;
+				}
+
+				buffer = sortedBuffer;
 
 				intVector.clear();
 				wordsToSort.clear();
-
 
 				break;
 
