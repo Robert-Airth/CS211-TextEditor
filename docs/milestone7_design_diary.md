@@ -10,7 +10,8 @@
  sorting functions automatically compared the strings for me. This was a great learning experience about string
  comparisons. I was able to get the functionality of the Insertion, Selection, and Bubble sorting functions working 
  in my TextEditor in about 1 hour. The Quicksort function did not work, and I did not remember that it was broken 
- since lecture. 
+ since lecture. I continued with my progress by adding the menu option for Insertion sort, Selection sort, Bubble 
+ sort, and Quick sort.
  
  I dug into the Quicksort function a bit and found that the helper function was looping infinitely. I decided to 
  call it a night and address it in class. The next day in class, Adam addressed the Quicksort code being broken 
@@ -21,57 +22,26 @@
  data gets overwritten due to the reference. A better strategy would be to not use a reference and then the value
  being stored is a copy of the original, thereby removing the integrity issue if the original value changes.
 
- After lecture, I took these ides and fixed the Quicksort function which was already integrated into my Text Editor.
-At this point I had all of t
-
- ***Breakdown of code re-use/ideas/algorithms***
- 
- --The first part of reading the characters from the on-screen buffer into the compression function utilized code
- I created for the "save file" Milestone, since that required me to take what was on the screen and write it into 
- a text file. 
- 
- --The next part of the milestone proved to be more challenging since it required the reading of entire words from 
- the on-screen buffer; for this I used code that I created in Milestone 5. The code used from Milestone 5 was for 
- reading the user-typed prefix off of the screen to search through the Trie for matches. This, again, worked well with 
- slight adaptations.
- 
- --After getting the words from the buffer, I then entered them into an unordered_map to keep track of the number 
- of occurrences of each word. Once I had mapped all words from the buffer and their associated frequencies, I was 
- able to utilize a sorting function (thank you, Adam) that created a maxHeap(priority queue) of each word and its
- frequency, with the most frequently-occurring word at the top of the heap.
- 
- --After the word-frequency map was created, I then took each word off of the maxHeap and gave the most frequently-
- occurring words the smallest binary representations while the least frequently occurring words got the largest binary
- representations(with each binary representation increasing in size while being unique). The words and their new binary
- equivalents were then stored in an unordered_map.  
- 
- --After creating the compression-reference map(above), I parsed through the on-screen buffer again. This time all
- of the non-alphabetical characters were written to the compressed file immediately upon discovery, while the
- alphabetical characters were grouped as words appropriately. For each word that was delimited by non-alphabetical
- characters, its binary equivalent was found and substituted for that word in the file-writing process. The file
- being written was given the name as entered by the user and the extension ".compressed.txt" appended onto it.
-
- --The last step was to create the ".codes.txt" compression-reference map file from the unordered_map created above.
- This part went fairly straigforward and I used many of the same functions as used in the previous compression processes.
-
-
+ After lecture, I took these ideas and fixed the Quicksort function which was already integrated into my Text Editor.
+ At this point I had all of the Milestone 7 objective complete, so I decided to try working on the Extra Credit
+ objectives. I realized that doing the #1 Extra Credit option would be much more difficult as I have no idea how
+ I would implement any visualization of the sorting while keeping swapping elements in their positions within the 
+ 2d vector of Int. I felt that meeting the #2 Extra Credit option objective of maintaining document order/word 
+ placement would be easier. It took another hour or so to meet the Extra Credit #2 objective.
  
 
  ***Take-away***
 
---I really wanted to create a true Huffman Coding Tree, but in the end I felt it would be more valuable to make the minimum 
-viable product to meet the Milestone 6 objectives. The idea of compressing whole words but leaving the non-alphabetical 
-values as-is bothered me through the binary-conversion step. Before I started on the project, I immediately recognized 
-the importance of unique prefixes for the binary values in a true lossless character-wise compression algorithm. 
+--I'm glad that I understand my Text Editor code well enough to integrate new features without too much hassle. I feel
+ like this is a good indicator that I am comfortable and fairly knowledgable with how to utilize the data structures I
+ am using. Just because I am glad I understand my code and data structures does not necessarily mean I like my Text 
+ Editor. There are many things I would change about it, but I am proud of it. I want to hold onto it as it is
+ since this is the largest program I have created in my coding career.
 
-
- --I am really building confidence in my ability to solve programming problems, but I am also realizing my weaknesses.
- At the current state that my text editor is in, it is glaringly obvious that I need to utilize the object-oriented
- features of the C++ language. I have a lot of repetitive code and many of my on-screen items would be easier to 
- deal with in the code if they were to be their own objects. The issue is that I need to practice creating Classes,
- Header files, Templates, Super Classes, and Sub Classes more regularly to become good at using them. So far, I have
- not had much experience with them in the courses I've taken. I know it's just a matter of me teaching myself what
- I know I'm not good at, but I just have not had the time to focus so much on something that is not directly beneficial
- to my current academic goals.
+ --I need to practice creating Classes, Header files, Templates, Super Classes, and Sub Classes. I also need to get more
+ familiar with referencing and de-referencing and when to use each option for maximum performance in given situations.
+ I know it's just a matter of me teaching myself what I know I'm not good at, but I just have not had the time to focus 
+ so much on something that is not directly beneficial to my current academic goals. I also have a feeling that my weaknesses
+ may get strengthened naturally as I continue coding. 
 
 ![Milestone7Demo](https://raw.githubusercontent.com/rja45/CS211-TextEditor/master/docs/Milestone06.gif)
