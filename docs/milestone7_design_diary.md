@@ -34,9 +34,8 @@
 
 --I'm glad that I understand my Text Editor code well enough to integrate new features without too much hassle. I feel
  like this is a good indicator that I am comfortable and fairly knowledgable with how to utilize the data structures I
- am using. Just because I am glad I understand my code and data structures does not necessarily mean I like my Text 
- Editor. There are many things I would change about it, but I am proud of it. I want to hold onto it as it is
- since this is the largest program I have created in my coding career.
+ am using. This is the largest program I have created in my coding career and I feel like I learned a lot about from 
+ these Milestones. 
 
  --I need to practice creating Classes, Header files, Templates, Super Classes, and Sub Classes. I also need to get more
  familiar with referencing and de-referencing and when to use each option for maximum performance in given situations.
