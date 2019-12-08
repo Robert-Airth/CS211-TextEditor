@@ -1,3 +1,8 @@
-pear apple
-banana carrot peach
-apricot
+My Text Editor can sort text 
+and also keep
+the document order
+as
+it
+was before
+the
+sort

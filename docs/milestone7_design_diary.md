@@ -44,4 +44,4 @@
  so much on something that is not directly beneficial to my current academic goals. I also have a feeling that my weaknesses
  may get strengthened naturally as I continue coding. 
 
-![Milestone7Demo](https://raw.githubusercontent.com/rja45/CS211-TextEditor/master/docs/Milestone06.gif)
+![Milestone7Demo](https://raw.githubusercontent.com/rja45/CS211-TextEditor/master/docs/Milestone07.gif)
